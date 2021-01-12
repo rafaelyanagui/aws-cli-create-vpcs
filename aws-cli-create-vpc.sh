@@ -48,7 +48,7 @@ SUBNET_PRIVATE1_NAME="subnet_${PROJECT_NAME}_${ENVIROMENT}_private_a"
 
 SUBNET_PRIVATE2_CIDR="10.0.4.0/24"
 SUBNET_PRIVATE2_AZ="${AWS_REGION}b"
-SUBNET_PRIVATE2_NAME="subnet_${PROJECT_NAME}_${ENVIROMENT}_private_a"
+SUBNET_PRIVATE2_NAME="subnet_${PROJECT_NAME}_${ENVIROMENT}_private_b"
 
 ROUTER_TABLE_PUBLIC_NAME="rt_${PROJECT_NAME}_${ENVIROMENT}_public"
 ROUTER_TABLE_PRIVATE_NAME="rt_${PROJECT_NAME}_${ENVIROMENT}_private"
@@ -228,29 +228,29 @@ RESULT=$(aws ec2 associate-route-table  \
   --subnet-id $SUBNET_PUBLIC1_ID \
   --route-table-id $ROUTE_TABLE_PUBLIC_ID \
   --region $AWS_REGION)
-echo "  Public Subnet ID '$SUBNET_PUBLIC1_ID' ASSOCIATED with Route Table ID" \
+echo "  Public Subnet 1 ID '$SUBNET_PUBLIC1_ID' ASSOCIATED with Route Table ID" \
   "'$ROUTE_TABLE_PUBLIC_ID'."
 
 RESULT=$(aws ec2 associate-route-table  \
   --subnet-id $SUBNET_PUBLIC2_ID \
   --route-table-id $ROUTE_TABLE_PUBLIC_ID \
   --region $AWS_REGION)
-echo "  Public Subnet ID '$SUBNET_PUBLIC2_ID' ASSOCIATED with Route Table ID" \
+echo "  Public Subnet 2 ID '$SUBNET_PUBLIC2_ID' ASSOCIATED with Route Table ID" \
   "'$ROUTE_TABLE_PUBLIC_ID'."
 
 # Associate Privates Subnet with Private Route Table
 RESULT=$(aws ec2 associate-route-table  \
-  --subnet-id $SUBNET_PUBLIC1_ID \
+  --subnet-id $SUBNET_PRIVATE1_ID \
   --route-table-id $ROUTE_TABLE_PRIVATE_ID \
   --region $AWS_REGION)
-echo "  Public Subnet ID '$SUBNET_PUBLIC1_ID' ASSOCIATED with Route Table ID" \
+echo "  Private Subnet 1 ID '$SUBNET_PRIVATE1_ID' ASSOCIATED with Route Table ID" \
   "'$ROUTE_TABLE_PRIVATE_ID'."
 
 RESULT=$(aws ec2 associate-route-table  \
   --subnet-id $SUBNET_PRIVATE2_ID \
   --route-table-id $ROUTE_TABLE_PRIVATE_ID \
   --region $AWS_REGION)
-echo "  Public Subnet ID '$SUBNET_PRIVATE2_ID' ASSOCIATED with Route Table ID" \
+echo "  Private Subnet 2 ID '$SUBNET_PRIVATE2_ID' ASSOCIATED with Route Table ID" \
   "'$ROUTE_TABLE_PRIVATE_ID'."
 
 # Enable Auto-assign Public IP on Public 1 Subnet
