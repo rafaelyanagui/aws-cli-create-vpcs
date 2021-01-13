@@ -55,7 +55,6 @@ ROUTER_TABLE_PRIVATE_NAME="rt_${PROJECT_NAME}_${ENVIROMENT}_private"
 
 INTERNET_GATEWAY_NAME="igw_${PROJECT_NAME}"
 
-CHECK_FREQUENCY=5
 #
 #==============================================================================
 #   DO NOT MODIFY CODE BELOW
@@ -69,6 +68,10 @@ VPC_ID=$(aws ec2 create-vpc \
   --output text \
   --region $AWS_REGION)
 echo "  VPC ID '$VPC_ID' CREATED in '$AWS_REGION' region."
+
+aws ec2 modify-vpc-attribute \
+  --vpc-id $VPC_ID \
+  --enable-dns-hostnames "{\"Value\":true}"
 
 # Add Name tag to VPC
 aws ec2 create-tags \
